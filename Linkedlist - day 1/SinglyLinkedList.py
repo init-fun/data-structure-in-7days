@@ -183,6 +183,44 @@ class SinglyLinkedList:
                 cnode = cnode.next
             end_node = cnode
 
+    def merge(self, sec_list):
+        new_list = SinglyLinkedList()
+        new_list.head = self.merge_these_two(self.head, sec_list.head)
+        return new_list
+
+    def merge_these_two(self, first, second):
+        if first.data <= second.data:
+            new_node = Node(first.data)
+            first = first.next
+        else:
+            new_node = Node(second.data)
+            second = second.next
+
+        third_list = new_node
+        # new_list_ref = new_node
+
+        while first and second:
+            if first.data <= second.data:
+                third_list.next = Node(first.data)
+                first = first.next
+            else:
+                third_list.next = Node(second.data)
+                second = second.next
+            third_list = third_list.next
+
+        while first:
+
+            third_list.next = Node(first.data)
+            first = first.next
+            third_list = third_list.next
+
+        while second:
+            third_list.next = Node(second.data)
+            second = second.next
+            third_list = third_list.next
+
+        return new_node
+
 
 myList = SinglyLinkedList()
 # myList.traverse()
@@ -224,16 +262,24 @@ myList3.insert_at_begining(40)
 myList3.insert_at_begining(30)
 myList3.insert_at_begining(20)
 print("List 3:", end=">>> ")
-# myList3.traverse()
+myList3.traverse()
 
 myList3.insert_after(50, 55)
-# print("New list")
-# myList3.traverse()
 myList3.delete_this(20)
-# myList3.traverse()
-
 myList3.delete_this(40)
-# myList3.traverse()
-
 myList3.delete_this(55)
+print("This is the state of each of the list at this moment")
+
+print("Bubble sort")
+myList2.traverse()
+myList2.bubble_sort()
+myList2.traverse()
+
+print()
+print("Merging two list")
+myList.traverse()
 myList3.traverse()
+
+# new_list = myList.merge_them(myList3)
+new_list = myList.merge(myList3)
+new_list.traverse()
