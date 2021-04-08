@@ -1,6 +1,3 @@
-from os import X_OK, linesep
-
-
 class Node:
     def __init__(self, data, next=None):
         self.data = data

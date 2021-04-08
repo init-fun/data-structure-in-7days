@@ -135,3 +135,15 @@ class CyclicLinkedList:
             if self.last.data == data:
                 self.last = cnode
         return
+
+    def concatenate(self, second_list):
+        if self.last is None and second_list:
+            return second_list
+        if second_list.last is None and self.last:
+            return self.last
+
+        ptr = self.last.next
+        self.last.next = second_list.last.next
+        second_list.last.next = ptr
+        self.last = second_list.last
+        return
