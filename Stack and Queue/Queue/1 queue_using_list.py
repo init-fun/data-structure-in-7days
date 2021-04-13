@@ -1,8 +1,8 @@
 class Queue:
     def __init__(self, max_length=5):
         self.q = [None] * max_length
-        self.count = 0
         self.front = 0
+        self.count = 0
 
     def is_empty(self):
         return self.front == self.count
@@ -24,7 +24,6 @@ class Queue:
     def deque(self):
         if self.is_empty():
             print("Undeflow: Q is empty")
-
             return
 
         poppedn_item = self.q[self.front]

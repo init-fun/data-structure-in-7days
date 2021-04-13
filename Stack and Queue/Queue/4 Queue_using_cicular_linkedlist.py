@@ -4,6 +4,7 @@ class Node:
         self.next = next
 
 
+# queue using circular linked list
 class Queue:
     def __init__(self):
         self.head = None
