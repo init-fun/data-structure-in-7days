@@ -77,6 +77,8 @@ class BinaryTree:
             return self.level_order(self.root)
         elif type == "reverse_level":
             return self.reverse_level_order(self.root)
+        elif type == "height":
+            return self.height(self.root)
         else:
             print("Invalid traversal type")
             return False
@@ -147,6 +149,31 @@ class BinaryTree:
 
         return result
 
+    def height(self, root):
+        if root is None:
+            return -1
+
+        left_height = self.height(root.left)
+        right_height = self.height(root.right)
+        return 1 + max(left_height, right_height)
+
+    def size(self):
+        if self.root is None:
+            return 0
+        stack = Stack()
+        stack.push(self.root)
+        size = 1
+        while stack:
+            node = stack.pop()
+            if node.left:
+                size += 1
+                stack.push(node.left)
+            if node.right:
+                size += 1
+                stack.push(node.right)
+
+        return size
+
 
 tree = BinaryTree(1)
 tree.root.left = Node(2)
@@ -162,3 +189,5 @@ print("Inorder: ", tree.traverse_tree_in("in"))
 print("Postorder: ", tree.traverse_tree_in("post"))
 print("Level order: ", tree.traverse_tree_in("level"))
 print("Reverse level order: ", tree.traverse_tree_in("reverse_level"))
+print("Height of the tree (from root): ", tree.height(tree.root))
+print("Size of the tree (from root): ", tree.size())
