@@ -24,6 +24,9 @@ class Stack:
             return False
         return self.stack[-1].data
 
+    def __len__(self):
+        return len(self.stack)
+
 
 class Queue:
     def __init__(self):
@@ -126,6 +129,24 @@ class BinaryTree:
         if start is None:
             return
 
+        queue = Queue()
+        queue.enque(start)
+        stack = Stack()
+        result = ""
+
+        while len(queue) > 0:
+            node = queue.deque()
+            stack.push(node)
+            if node.right:
+                queue.enque(node.right)
+            if node.left:
+                queue.enque(node.left)
+
+        while len(stack) > 0:
+            result += str(stack.pop().data) + "- "
+
+        return result
+
 
 tree = BinaryTree(1)
 tree.root.left = Node(2)
@@ -140,3 +161,4 @@ print("Preorder: ", tree.traverse_tree_in("pre"))
 print("Inorder: ", tree.traverse_tree_in("in"))
 print("Postorder: ", tree.traverse_tree_in("post"))
 print("Level order: ", tree.traverse_tree_in("level"))
+print("Reverse level order: ", tree.traverse_tree_in("reverse_level"))
