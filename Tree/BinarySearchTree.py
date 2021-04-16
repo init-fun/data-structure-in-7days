@@ -85,6 +85,86 @@ class BinarySeachTree:
             else:
                 return False
 
+    # iteratively
+    def min_node(self):
+        if self.root is None:
+            print("Empty tree")
+            return
+        start = self.root
+        while start.left:
+            start = start.left
+        return start.data
+
+    def max_node(self):
+        if self.root is None:
+            print("Empty tree")
+            return
+        start = self.root
+        while start.right:
+            start = start.right
+        return start.data
+
+    # recursively
+    def min_node2(self):
+        if self.root is None:
+            print("Empty tree")
+            return
+        return self._minimum_node(self.root).data
+
+    def _minimum_node(self, cnode):
+        if cnode.left is None:
+            return cnode
+        return self._minimum_node(cnode.left)
+
+    def max_node2(self):
+        if self.root is None:
+            print("Empty tree")
+            return
+        return self._maximum_node(self.root).data
+
+    def _maximum_node(self, cnode):
+        if cnode.right is None:
+            return cnode
+        return self._maximum_node(cnode.right)
+
+    # deletion in BST
+    def delete(self, data):
+        if self.root is None:
+            print("Tree is empty")
+            return
+        return self._delete_this_node(self.root, data)
+
+    def _delete_this_node(self, cnode, data):
+        # find the node to be deleted
+        if data < cnode.data:
+            cnode.left = self._delete_this_node(cnode.left, data)
+        elif data > cnode.data:
+            cnode.right = self._delete_this_node(cnode.right, data)
+        else:
+            # if the node is with only one child or no child
+            if cnode.left is None:
+                temp = cnode.right
+                cnode = None
+                return temp
+            elif cnode.right is None:
+                temp = cnode.left
+                cnode = None
+                return temp
+
+            # if the node has two children,
+            # place the inorder successor in position of the node to be deleted
+
+            temp = self.minValueNode(cnode.right)
+
+            cnode.data = temp.data
+            cnode.right = self._delete_this_node(cnode.right, temp.data)
+        return cnode
+
+    def minValueNode(self, start):
+        while start.left:
+            start = start.left
+        return start
+
 
 bst = BinarySeachTree()
 bst.insert(4)
@@ -108,3 +188,24 @@ non_bst.root.right = Node(1)
 non_bst.inorder()
 print("Is it a BST: ", non_bst.is_bst())
 print()
+
+print("Max and min nodes")
+
+print(bst.min_node())
+print(bst.min_node2())
+
+print(bst.max_node())
+print(bst.max_node2())
+
+print("Inorder: ")
+bst.inorder()
+print("Delete 4: ")
+bst.delete(4)
+
+# print("Delete 3: ")
+# bst.delete(3)
+
+# print("Delete 8: ")
+# bst.delete(8)
+
+bst.inorder()
