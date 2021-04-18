@@ -67,7 +67,8 @@ class BinarySeachTree:
 
     def is_bst(self):
         if self.root is None:
-            return False
+            print("tree is empty")
+            return True
         is_satisfied = self._is_bst(self.root, self.root.data)
         if is_satisfied is None:
             return True
