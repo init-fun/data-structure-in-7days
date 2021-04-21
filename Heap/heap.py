@@ -63,3 +63,11 @@ class Heap:
             pos = left_child
         self.heap[pos] = cnode
         return
+
+    def display(self):
+        if self.is_empty():
+            print("Heap is empty")
+            return
+        for i in range(1, self.count):
+            print(f"{self.heap[i]}", end=" > ")
+        return
