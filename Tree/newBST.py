@@ -8,6 +8,13 @@ class Node:
 class BST:
     def __init__(self, data) -> None:
         self.root = Node(data)
+        return
+
+    def is_empty(self):
+        return self.root == None
+
+    def insert(self, data):
+        if self.root is None:
             self.root = Node(data)
             return
         return self._insertNew(self.root, data)
